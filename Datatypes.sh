@@ -9,7 +9,7 @@ echo "sum is $SUM"
 
 echo "Below are array ones"
 
-LIST=("modi","trump","CBN")
+LIST=("modi" "trump" "CBN")
 
 echo "ALL LEADERS are ${LIST[@]}"
 echo "Telugu leader is ${LIST[2]}"
