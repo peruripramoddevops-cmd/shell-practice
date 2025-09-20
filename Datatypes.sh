@@ -7,9 +7,10 @@ SUM=$(($NUMBER1+$NUMBER2))
 
 echo "sum is $SUM"
 
-Echo "Below are array ones"
+echo "Below are array ones"
 
 LIST=("modi","trump","CBN")
 
 echo "ALL LEADERS are ${LIST[@]}"
 echo "Telugu leader is ${LIST[2]}"
+echo "First Leader: ${LIST[0]}"
