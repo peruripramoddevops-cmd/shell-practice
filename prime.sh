@@ -12,7 +12,7 @@ fi
 is_prime=true
 
 for ((i=2; i*i < $num; i++)); do
-   if ($num % i == 0); then
+   if [ $num % i == 0 ]; then
     is_prime=false
     break
    fi
