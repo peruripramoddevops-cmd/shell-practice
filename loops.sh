@@ -34,6 +34,6 @@ do
       dnf install $package -y &>>$LOG_FILE  
         validate $? "$package"
     else
-      echo -e "$package already installed....$Y SKIPPING $N
+      echo -e "$package already installed....$Y SKIPPING $N"
     fi
 done
