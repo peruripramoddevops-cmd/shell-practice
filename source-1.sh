@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME=INDIA
-echo "my country: $NAME"
-echo "PID of script: $PPID"
-
+echo "My Country: $NAME"
+echo "PID of SCRITP-1: $$"
+#sh 21-script-2.sh
 source ./source-2.sh
