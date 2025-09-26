@@ -17,7 +17,7 @@ LOG_FILE=$LOGS_FOLDER/$SCRIPT_NAME.log
 mkdir -p $LOGS_FOLDER
 echo "Scrpit started creating at: $date" | tee -a $LOGS_FOLDER
 
-if [ USERID -ne 0 ]; then
+if [ $USERID -ne 0 ]; then
        echo "ERROR:: Please run this code with root preivelge"
        exit 1
 fi
