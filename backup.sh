@@ -7,55 +7,50 @@ Y="\e[33m"
 N="\e[0m"
 SOURCE_DIR=$1
 DEST_DIR=$2
-DAYS=${3:-14} # if not provided considered as 14 days
+DAYS=${3:-14}
 
-LOGS_FOLDER="/var/log/shell-script"
-SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
-LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" # /var/log/shell-script/16-logs.log
+
+LOGS_FOLDER="var/logs/shell-practice"
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
+LOG_FILE=$LOGS_FOLDER/$SCRIPT_NAME.log 
 
 mkdir -p $LOGS_FOLDER
-echo "Script started executed at: $(date)" | tee -a $LOG_FILE
+echo "Scrpit started creating at: $date" | tee -a $LOGS_FOLDER
 
 if [ $USERID -ne 0 ]; then
-    echo "ERROR:: Please run this script with root privelege"
-    exit 1 # failure is other than 0
+       echo "ERROR:: Please run this code with root preivelge"
+       exit 1
 fi
 
 USAGE(){
-    echo -e "$R USAGE:: sudo sh 24-backup.sh <SOURCE_DIR> <DEST_DIR> <DAYS>[optional, default 14 days] $N"
+    echo -e "$R USAGE:: sudo sh backup.sh <SOURCE_DIR> <DEST_DIR> <DAYS>[optional, default 14 days] $N"
     exit 1
 }
 
-### Check SOURCE_DIR and DEST_DIR passed or not ####
 if [ $# -lt 2 ]; then
-    USAGE
-fi
+     USAGE
+fi     
 
-### Check SOURCE_DIR Exist ####
+
 if [ ! -d $SOURCE_DIR ]; then
-    echo -e "$R Source $SOURCE_DIR does not exist $N"
-    exit 1
+   echo -e "$R ERROR:: $SOURCE_DIR does not exist $N"
+   exit 1
 fi
 
-### Check DEST_DIR Exist ####
 if [ ! -d $DEST_DIR ]; then
-    echo -e "$R Destination $DEST_DIR does not exist $N"
-    exit 1
+   echo -e "$R ERROR:: $DEST_DIR does not exist $N"
+   exit 1
 fi
 
-### Find the files ####
-FILES=$(find $SOURCE_DIR -name "*.log" -type f -mtime +$DAYS)
+FILES=$(find $SOUCE_DIR -name "*.log" -type f -mtime +$DAYS)
 
-
-if [ ! -z "${FILES}" ]; then
-    ### Start Archeiving ###
+if [ ! -z "{FILES}" ]; then
     echo "Files found: $FILES"
     TIMESTAMP=$(date +%F-%H-%M)
     ZIP_FILE_NAME="$DEST_DIR/app-logs-$TIMESTAMP.zip"
-    echo "Zip file name: $ZIP_FILE_NAME"
-    find $SOURCE_DIR -name "*.log" -type f -mtime +$DAYS | zip -@ -j "$ZIP_FILE_NAME"
+    echo "ZIP file name: $ZIP_FILE_NAME"
+    find $SOUCE_DIR -name "*.log" -type f -mtime +$DAYS | zip -@ -j "$ZIP_FILE_NAME"
 
-    ### Check Archieval Success or not ###
     if [ -f $ZIP_FILE_NAME ]
     then
         echo -e "Archeival ... $G SUCCESS $N"
